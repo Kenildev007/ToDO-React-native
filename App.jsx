@@ -22,6 +22,7 @@ const App = () => {
     setTasks(updatedTasks);
   };
 
+  
     return (
         <View style={styles.background}>
             <Text style={styles.header}>Todo Task App</Text>
