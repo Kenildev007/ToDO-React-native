@@ -1,49 +1,59 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
-import TodoTask from './src/TodoTask'
-import TodoList from './src/TodoList'
+import * as React from 'react';
+import { View, Text, Button } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const App = () => {
-  const [tasks, setTasks] = useState([]);
-
-  const addTask = (task) => {
-    setTasks([...tasks, task]);
-  };
-
-  const deleteTask = (index) => {
-    const updatedTask = [...tasks];
-    updatedTask.splice(index, 1);
-    setTasks(updatedTask);
-  };
-
-  const editTask = (index, newText, newStatus) => {
-    const updatedTasks = [...tasks];
-    updatedTasks[index] = { ...updatedTasks[index], text: newText, status: newStatus };
-    setTasks(updatedTasks);
-  };
-
-  
-    return (
-        <View style={styles.background}>
-            <Text style={styles.header}>Todo Task App</Text>
-            <TodoTask addTask={addTask}/>
-            <Text style={styles.header}>Todo Informations</Text>
-            <TodoList task={tasks} deleteTask={deleteTask} editTask={editTask} />
-        </View>
-    )
+function HomeScreen({ navigation }) {
+  return (
+    <View>
+      <Button
+        title='Go to Profile Page'
+        onPress={() => navigation.navigate('Profile')}
+      />
+    </View>
+  );
+}
+function ProfileScreen({ navigation }) {
+  return (
+    <View>
+      <Button
+        title='Go to Dashboard Page'
+        onPress={() => navigation.navigate('Dashboard')}
+      />
+      <Button
+        title='Go back'
+        onPress={() => navigation.goBack()}
+      />
+    </View>
+  );
+}
+function DashboardScreen({ navigation }) {
+  return (
+    <View>
+      <Text>This is the last page</Text>
+      <Button
+        title='Go back'
+        onPress={() => navigation.goBack()}
+      />
+      <Button
+        title='Go To Home Page'
+        onPress={() => navigation.navigate('Home')}
+      />
+    </View>
+  );
 }
 
-export default App
+const Stack = createNativeStackNavigator();
 
-const styles = StyleSheet.create({
-    header: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-        color: '#333333',
-    },
-    background: {
-        flex: 1,
-        backgroundColor: '#C9D7DD',
-    }
-})
+export default function MyStack() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name='Home' component={HomeScreen} />
+        <Stack.Screen name='Profile' component={ProfileScreen} />
+        <Stack.Screen name='Dashboard' component={DashboardScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
