@@ -1,18 +1,22 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Button, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const TodoCompleted = ({tasks}) => {
-    const completedTasks = tasks.filter(x => x.status === "Completed");
+const TodoCompleted = ({ navigation, completedTasks }) => {
+
 
     return (
-        <View style={styles.background}>
-            <Text style={styles.header}>Completed Tasks</Text>
-            {completedTasks.map((elem,index) => (
-                <View key={index}>
-                    <Text>{elem.text}</Text>
-                </View>
-            ))}
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={styles.background}>
+                <Text style={styles.header}>Completed Tasks</Text>
+                {completedTasks.map((elem, index) => (
+                    <View key={index}>
+                        <Text>{elem.text}</Text>
+                    </View>
+                ))}
+            </View>
+            <Button title="Go Back" onPress={() => navigation.goBack()} />
         </View>
+
     )
 }
 

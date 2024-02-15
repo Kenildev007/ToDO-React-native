@@ -1,40 +1,27 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Button, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import TodoTask from '../TodoTask'
 import TodoList from '../TodoList'
 
-const App = () => {
-    const [tasks, setTasks] = useState([]);
-
-    const addTask = (task) => {
-        setTasks([...tasks, task]);
-    };
-
-    const deleteTask = (index) => {
-        const updatedTask = [...tasks];
-        updatedTask.splice(index, 1);
-        setTasks(updatedTask);
-    };
-
-    const editTask = (index, newText, newStatus) => {
-        const updatedTasks = [...tasks];
-        updatedTasks[index] = { ...updatedTasks[index], text: newText, status: newStatus };
-        setTasks(updatedTasks);
-    };
-
+const TodoScreen1 = ({ navigation, tasks, addTask, deleteTask, editTask }) => {
 
     return (
-        <View style={styles.background}>
-            <Text style={styles.header}>Todo Task App</Text>
-            <TodoTask addTask={addTask} />
-            <Text style={styles.header}>Todo Informations</Text>
-            <TodoList task={tasks} deleteTask={deleteTask} editTask={editTask} />
-            
+
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={styles.background}>
+                <Text style={styles.header}>Todo Task App</Text>
+                <TodoTask addTask={addTask} />
+                <Text style={styles.header}>Todo Informations</Text>
+                <TodoList task={tasks} deleteTask={deleteTask} editTask={editTask} />
+
+            </View>
+            <Button title="Go to Completed Tasks" onPress={() => navigation.navigate('TodoCompleted')} />
         </View>
+
     )
 }
 
-export default App
+export default TodoScreen1
 
 const styles = StyleSheet.create({
     header: {
