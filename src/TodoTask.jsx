@@ -9,11 +9,11 @@ const TodoTask = ({ addTask }) => {
     };
 
     const handleAddTask = () => {
-        if(taskText.trim()) {
+        if (taskText.trim()) {
             addTask({ text: taskText, status: 'Pending' });
             setTaskText('');
         }
-    };  
+    };
 
     return (
         <View style={styles.container}>
@@ -22,7 +22,7 @@ const TodoTask = ({ addTask }) => {
                 placeholder='Enter your task here'
                 value={taskText}
                 onChangeText={handeInputChange}
-                ></TextInput>
+            ></TextInput>
             <TouchableOpacity style={styles.button}>
                 <Text style={styles.text} onPress={handleAddTask}>Add Task</Text>
             </TouchableOpacity>
