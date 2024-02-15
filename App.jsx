@@ -49,10 +49,10 @@ export default App = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Home" options={{ title: "Todo App" }} >
+        <Tab.Screen name="Home" options={{ headerShown: false }} >
           {(props) => <TodoScreen1 {...props} tasks={tasks} addTask={addTask} deleteTask={deleteTask} editTask={editTask} />}
         </Tab.Screen>
-        <Tab.Screen name="Completed"  options={{ title: "Completed" }} >
+        <Tab.Screen name="Completed"  options={{ headerShown: false }} >
           {(props) => <TodoCompleted {...props} completedTasks={completedTasks} />}
         </Tab.Screen>
       </Tab.Navigator>
