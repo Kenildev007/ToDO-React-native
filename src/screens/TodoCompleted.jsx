@@ -17,7 +17,6 @@ const TodoCompleted = ({ navigation, completedTasks }) => {
                     ))}
                 </ScrollView>
             </View>
-            <Button title="Go Back" onPress={() => navigation.goBack()} />
         </View>
 
     )

@@ -15,7 +15,6 @@ const TodoScreen1 = ({ navigation, tasks, addTask, deleteTask, editTask }) => {
                 <TodoList task={tasks} deleteTask={deleteTask} editTask={editTask} />
 
             </View>
-            <Button title="Go to Completed Tasks" onPress={() => navigation.navigate('TodoCompleted')} />
         </View>
 
     )

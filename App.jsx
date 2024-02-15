@@ -1,49 +1,61 @@
-import React, { useState } from 'react';
+import { Text, View } from 'react-native'
+import React, { useState } from 'react'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import TodoScreen1 from './src/screens/TodoScreen1';
 import TodoCompleted from './src/screens/TodoCompleted';
+import TodoScreen1 from './src/screens/TodoScreen1';
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
-const App = () => {
-    const [tasks, setTasks] = useState([]);
-    const [completedTasks, setCompletedTasks] = useState([]);
 
-    const addTask = (task) => {
-        setTasks([...tasks, task]);
-    };
+function HomeScreen() {
+  return (
+    <View>
 
-    const deleteTask = (index) => {
-        const updatedTask = [...tasks];
-        updatedTask.splice(index, 1);
-        setTasks(updatedTask);
-    };
+    </View>
+  )
+}
+function SettingScreen() {
+  return (
+    <View>
+      <TodoCompleted />
+    </View>
+  )
+}
+export default App = () => {
+  const [tasks, setTasks] = useState([]);
+  const [completedTasks, setCompletedTasks] = useState([]);
 
-    const editTask = (index, newText, newStatus) => {
-        const updatedTasks = [...tasks];
-        updatedTasks[index] = { ...updatedTasks[index], text: newText, status: newStatus };
-        setTasks(updatedTasks);
+  const addTask = (task) => {
+    setTasks([...tasks, task]);
+  };
 
-        if (newStatus === 'Completed') {
-            setCompletedTasks([...completedTasks, updatedTasks[index]]);
-            deleteTask(index);
-        }
-    };
+  const deleteTask = (index) => {
+    const updatedTask = [...tasks];
+    updatedTask.splice(index, 1);
+    setTasks(updatedTask);
+  };
 
-    return (
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen name="TodoScreen1">
-                    {(props) => <TodoScreen1 {...props} tasks={tasks} addTask={addTask} deleteTask={deleteTask} editTask={editTask} />}
-                </Stack.Screen>
-                <Stack.Screen name="TodoCompleted">
-                    {(props) => <TodoCompleted {...props} completedTasks={completedTasks} />}
-                </Stack.Screen>
-            </Stack.Navigator>
-        </NavigationContainer>
-    );
-};
+  const editTask = (index, newText, newStatus) => {
+    const updatedTasks = [...tasks];
+    updatedTasks[index] = { ...updatedTasks[index], text: newText, status: newStatus };
+    setTasks(updatedTasks);
 
-export default App;
-  
+    if (newStatus === 'Completed') {
+      setCompletedTasks([...completedTasks, updatedTasks[index]]);
+      deleteTask(index);
+    }
+  }
+  return (
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" options={{ title: "Todo App" }} >
+          {(props) => <TodoScreen1 {...props} tasks={tasks} addTask={addTask} deleteTask={deleteTask} editTask={editTask} />}
+        </Tab.Screen>
+        <Tab.Screen name="Completed"  options={{ title: "Completed" }} >
+          {(props) => <TodoCompleted {...props} completedTasks={completedTasks} />}
+        </Tab.Screen>
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
