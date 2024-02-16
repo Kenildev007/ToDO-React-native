@@ -68,7 +68,6 @@
                                     <View style={styles.right}>
                                         <Text>{taskItem.status}</Text>
                                         <Text style={styles.editbtn} onPress={() => handleEdit(index)}>Edit</Text>
-                                        <Text style={styles.deletebtn} onPress={() => handleDelete(index)}>Delete</Text>
                                     </View>
                                 </>
                             )}
@@ -116,10 +115,6 @@
         right: {
             flexDirection: 'row',
             gap: 8,
-        },
-        deletebtn: {
-            color: 'red',
-            fontWeight: 'bold',
         },
         editbtn: {
             color: 'blue',

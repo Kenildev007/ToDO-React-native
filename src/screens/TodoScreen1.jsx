@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 import TodoTask from '../TodoTask'
 import TodoList from '../TodoList'
 
-const TodoScreen1 = ({ navigation, tasks, addTask, deleteTask, editTask }) => {
-
+const TodoScreen1 = ({ navigation, tasks, addTask, editTask }) => {
+    
     return (
 
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -12,7 +12,7 @@ const TodoScreen1 = ({ navigation, tasks, addTask, deleteTask, editTask }) => {
                 <Text style={styles.header}>Todo Task App</Text>
                 <TodoTask addTask={addTask} />
                 <Text style={styles.header}>Todo Informations</Text>
-                <TodoList task={tasks} deleteTask={deleteTask} editTask={editTask} />
+                <TodoList task={tasks} editTask={editTask} />
 
             </View>
         </View>

@@ -1,7 +1,12 @@
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const TodoCompleted = ({ navigation, completedTasks }) => {
+const TodoCompleted = ({ navigation, completedTasks, deleteTask }) => {
+
+    const handleDelete = (index) => {
+        console.log('Deleting task at index:', index);
+        deleteTask(index, true); // Pass true to indicate it's a completed task
+    };
 
 
     return (
@@ -13,6 +18,7 @@ const TodoCompleted = ({ navigation, completedTasks }) => {
                     {completedTasks.map((elem, index) => (
                         <View style={styles.completedText} key={index}>
                             <Text style={styles.completeColor}>{elem.text}</Text>
+                            <Text style={styles.deletebtn} onPress={() => handleDelete(index)}>Delete</Text>
                         </View>
                     ))}
                 </ScrollView>
@@ -44,8 +50,13 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 2,
         borderColor: '#F0F3FF',
+        justifyContent: 'space-between'
     },
     completeColor: {
         color: 'white',
+    },
+    deletebtn: {
+        color: 'red',
+        fontWeight: 'bold',
     }
 })

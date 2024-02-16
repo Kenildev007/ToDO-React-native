@@ -30,10 +30,16 @@ export default App = () => {
     setTasks([...tasks, task]);
   };
 
-  const deleteTask = (index) => {
-    const updatedTask = [...tasks];
-    updatedTask.splice(index, 1);
-    setTasks(updatedTask);
+  const deleteTask = (index, isCompleted) => {
+    if (isCompleted) {
+      const updatedCompletedTasks = [...completedTasks];
+      updatedCompletedTasks.splice(index, 1);
+      setCompletedTasks(updatedCompletedTasks);
+    } else {
+      const updatedTasks = [...tasks];
+      updatedTasks.splice(index, 1);
+      setTasks(updatedTasks);
+    }
   };
 
   const editTask = (index, newText, newStatus) => {
@@ -50,10 +56,10 @@ export default App = () => {
     <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen name="Home" options={{ headerShown: false }} >
-          {(props) => <TodoScreen1 {...props} tasks={tasks} addTask={addTask} deleteTask={deleteTask} editTask={editTask} />}
+          {(props) => <TodoScreen1 {...props} tasks={tasks} addTask={addTask} editTask={editTask} />}
         </Tab.Screen>
-        <Tab.Screen name="Completed"  options={{ headerShown: false }} >
-          {(props) => <TodoCompleted {...props} completedTasks={completedTasks} />}
+        <Tab.Screen name="Completed" options={{ headerShown: false }} >
+          {(props) => <TodoCompleted {...props} completedTasks={completedTasks} deleteTask={deleteTask} />}
         </Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>
