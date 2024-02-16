@@ -1,67 +1,99 @@
-import 'react-native-gesture-handler';
-import { Text, View } from 'react-native'
-import React, { useState } from 'react'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+
+import React from 'react';
+import { Button, View, Text } from 'react-native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
-import TodoCompleted from './src/screens/TodoCompleted';
-import TodoScreen1 from './src/screens/TodoScreen1';
-
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createStackNavigator} from '@react-navigation/stack';
+import { Ionicons } from '@expo/vector-icons';
 const Tab = createBottomTabNavigator();
-
-
 function HomeScreen() {
   return (
-    <View>
-    </View>
-  )
+    <Tab.Navigator
+    screenOptions={({ route }) => ({
+      tabBarIcon: ({ focused, color, size }) => {
+     let iconName;
+     if (route.name === 'TabA') {
+        iconName = focused
+        ? 'ios-information-circle'
+        : 'ios-information-circle-outline';
+      } else if (route.name === 'TabB') {
+        iconName = focused
+        ? 'ios-list-box'
+        : 'ios-list';
+      }
+return <Ionicons name={iconName} size={size} color={color}     />;
+        },
+      })}
+      tabBarOptions={{
+      activeTintColor: 'tomato',
+      inactiveTintColor: 'gray',
+      }}
+    >
+        <Tab.Screen name="TabA" component={TabAScreen} />
+        <Tab.Screen name="TabB" component={TabBScreen} />
+    </Tab.Navigator>
+  );
 }
-function SettingScreen() {
+function NotificationsScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <Text>No New Notifications!</Text>
+      <Button 
+      onPress={() => navigation.goBack()}
+      title="Go back home"
+      />
+    </View>
+  );
+}
+const Stack = createStackNavigator();
+function TabAScreen() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="TabA Home" component={TabADetailsScreen} />
+      <Stack.Screen name="TabA Details" component={Details} />
+    </Stack.Navigator>
+  );
+}
+function TabADetailsScreen({navigation}) {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center',  alignItems: 'center' }}>
+      <Text>
+        Welcome to TabA page!
+      </Text>
+      <Button 
+      onPress={() => navigation.navigate('TabA Details')}
+      title="Go to TabA Details"
+      />
+    </View>
+  );
+}
+function Details() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center',  alignItems: 'center' }}>
+      <Text>
+        TabA Details here!
+      </Text>
+    </View>
+  );
+}
+function TabBScreen() {
   return (
     <View>
-      <TodoCompleted />
+      <Text style={{textAlign: 'center', marginTop: 300}}>
+        Welcome to TabB page!
+      </Text>
     </View>
-  )
+  );
 }
-export default App = () => {
-  const [tasks, setTasks] = useState([]);
-  const [completedTasks, setCompletedTasks] = useState([]);
-
-  const addTask = (task) => {
-    setTasks([...tasks, task]);
-  };
-
-  const deleteTask = (index, isCompleted) => {
-    if (isCompleted) {
-      const updatedCompletedTasks = [...completedTasks];
-      updatedCompletedTasks.splice(index, 1);
-      setCompletedTasks(updatedCompletedTasks);
-    } else {
-      const updatedTasks = [...tasks];
-      updatedTasks.splice(index, 1);
-      setTasks(updatedTasks);
-    }
-  };
-
-  const editTask = (index, newText, newStatus) => {
-    const updatedTasks = [...tasks];
-    updatedTasks[index] = { ...updatedTasks[index], text: newText, status: newStatus };
-    setTasks(updatedTasks);
-
-    if (newStatus === 'Completed') {
-      setCompletedTasks([...completedTasks, updatedTasks[index]]);
-      deleteTask(index);
-    }
-  }
+const Drawer = createDrawerNavigator();
+export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" options={{ headerShown: false }} >
-          {(props) => <TodoScreen1 {...props} tasks={tasks} addTask={addTask} editTask={editTask} />}
-        </Tab.Screen>
-        <Tab.Screen name="Completed" options={{ headerShown: false }} >
-          {(props) => <TodoCompleted {...props} completedTasks={completedTasks} deleteTask={deleteTask} />}
-        </Tab.Screen>
-      </Tab.Navigator>
+      <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen name="Home" component={HomeScreen} />
+        <Drawer.Screen name="Notifications" component={NotificationsScreen} />
+      </Drawer.Navigator>
     </NavigationContainer>
-  );
+  )
 }
