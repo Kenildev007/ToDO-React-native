@@ -1,28 +1,31 @@
-import { Text, View } from 'react-native'
-import React, { useState } from 'react'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import { useState } from 'react'
+import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import TodoCompleted from './src/screens/TodoCompleted';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import TodoScreen1 from './src/screens/TodoScreen1';
+import TodoCompleted from './src/screens/TodoCompleted';
 
-const Tab = createBottomTabNavigator();
-
-
-function HomeScreen() {
+function Feed() {
   return (
     <View>
-
+      <Text></Text>
     </View>
-  )
+  );
 }
-function SettingScreen() {
+
+function Article() {
   return (
     <View>
-      <TodoCompleted />
+      <Text></Text>
     </View>
-  )
+  );
 }
-export default App = () => {
+
+const Drawer = createDrawerNavigator();
+
+export default function MyDrawer() {
   const [tasks, setTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
 
@@ -54,14 +57,16 @@ export default App = () => {
   }
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" options={{ headerShown: false }} >
+      <Drawer.Navigator >
+        <Drawer.Screen name="Home" >
           {(props) => <TodoScreen1 {...props} tasks={tasks} addTask={addTask} editTask={editTask} />}
-        </Tab.Screen>
-        <Tab.Screen name="Completed" options={{ headerShown: false }} >
+        </Drawer.Screen>
+        <Drawer.Screen name="Completed" >
           {(props) => <TodoCompleted {...props} completedTasks={completedTasks} deleteTask={deleteTask} />}
-        </Tab.Screen>
-      </Tab.Navigator>
+        </Drawer.Screen>
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }
+
+
