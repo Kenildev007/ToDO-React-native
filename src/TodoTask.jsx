@@ -23,8 +23,8 @@ const TodoTask = ({ addTask }) => {
                 value={taskText}
                 onChangeText={handeInputChange}
                 ></TextInput>
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.text} onPress={handleAddTask}>Add Task</Text>
+            <TouchableOpacity  onPress={handleAddTask} style={styles.button}>
+                <Text style={styles.text} >Add Task</Text>
             </TouchableOpacity>
         </View>
     )
