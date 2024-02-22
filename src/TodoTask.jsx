@@ -1,17 +1,20 @@
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { addTask } from './redux/mainReducer';
 
-const TodoTask = ({ addTask }) => {
-    const [taskText, setTaskText] = useState('');
+const TodoTask = () => {
+    const taskText = useSelector(state => state.taskText);
+    const dispatch = useDispatch();
 
     const handeInputChange = (text) => {
-        setTaskText(text);
+        dispatch({ type: 'UPDATE_TASK_TEXT', payload: text });
     };
 
     const handleAddTask = () => {
         if(taskText.trim()) {
-            addTask({ text: taskText, status: 'Pending' });
-            setTaskText('');
+            dispatch(addTask({ text: taskText, status: 'Pending' }));
+            dispatch({ type: 'UPDATE_TASK_TEXT', payload: '' });
         }
     };  
 
@@ -22,13 +25,13 @@ const TodoTask = ({ addTask }) => {
                 placeholder='Enter your task here'
                 value={taskText}
                 onChangeText={handeInputChange}
-                ></TextInput>
-            <TouchableOpacity  onPress={handleAddTask} style={styles.button}>
-                <Text style={styles.text} >Add Task</Text>
+            />
+            <TouchableOpacity onPress={handleAddTask} style={styles.button}>
+                <Text style={styles.text}>Add Task</Text>
             </TouchableOpacity>
         </View>
-    )
-}
+    );
+};
 
 export default TodoTask;
 
@@ -59,4 +62,4 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
     },
-})
+});
