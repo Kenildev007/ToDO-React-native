@@ -60,14 +60,6 @@ const todoReducer = (state = initialState, action) => {
                 tasks: state.tasks.filter((task, taskIndex) => taskIndex !== action.payload)
             };
 
-        // case "EDIT_TASK":
-        //     const { index, newText, newStatus } = action.payload;
-        //     const updatedTasks = [...state.tasks];
-        //     updatedTasks[index] = { ...updatedTasks[index], text: newText, status: newStatus };
-        //     return {
-        //         ...state,
-        //         tasks: updatedTasks
-        //     };
         case "EDIT_TASK":
             return {
                 ...state,
